@@ -262,6 +262,11 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 - (void)storeRestoreTransactionsFailed:(NSNotification*)notification;
 - (void)storeRestoreTransactionsFinished:(NSNotification*)notification;
 
+/**
+ Tells the observer that a payment from app store has been received.
+ */
+- (void)storeStorePaymentReceived:(NSNotification*)notification __attribute__((availability(ios,introduced=11.0)));
+
 @end
 
 /**
@@ -304,5 +309,13 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 /** Used in @c storeRestoreTransactionsFinished:.
  */
 @property (nonatomic, readonly) NSArray *rm_transactions;
+
+/** Used in @c storeStorePaymentReceived:
+ */
+@property (nonatomic, readonly) SKPayment *rm_payment;
+
+/** Used in @c storeStorePaymentReceived:
+ */
+@property (nonatomic, readonly) SKProduct *rm_product;
 
 @end
