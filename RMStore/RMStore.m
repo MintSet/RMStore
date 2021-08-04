@@ -205,6 +205,11 @@ typedef void (^RMStoreSuccessBlock)();
     [self addPayment:productIdentifier user:nil success:successBlock failure:failureBlock];
 }
 
+- (void)continueDeferredPayment:(SKPayment*)payment
+{
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
 - (void)addPayment:(NSString*)productIdentifier
               user:(NSString*)userIdentifier
            success:(void (^)(SKPaymentTransaction *transaction))successBlock
