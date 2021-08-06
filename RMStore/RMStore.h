@@ -78,6 +78,11 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
            success:(void (^)(SKPaymentTransaction *transaction))successBlock
            failure:(void (^)(SKPaymentTransaction *transaction, NSError *error))failureBlock __attribute__((availability(ios,introduced=7.0)));
 
+/** Continue deferred payment that received from app store.
+ @param payment The payment object was obtained from @c storeStorePaymentReceived:
+ */
+- (void)continueDeferredPayment:(SKPayment*)payment __attribute__((availability(ios,introduced=11.0)));
+
 /** Request localized information about a set of products from the Apple App Store.
  @param identifiers The set of product identifiers for the products you wish to retrieve information of.
  */
@@ -262,6 +267,11 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 - (void)storeRestoreTransactionsFailed:(NSNotification*)notification;
 - (void)storeRestoreTransactionsFinished:(NSNotification*)notification;
 
+/**
+ Tells the observer that a payment from app store has been received.
+ */
+- (void)storeStorePaymentReceived:(NSNotification*)notification __attribute__((availability(ios,introduced=11.0)));
+
 @end
 
 /**
@@ -304,5 +314,13 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 /** Used in @c storeRestoreTransactionsFinished:.
  */
 @property (nonatomic, readonly) NSArray *rm_transactions;
+
+/** Used in @c storeStorePaymentReceived:
+ */
+@property (nonatomic, readonly) SKPayment *rm_payment;
+
+/** Used in @c storeStorePaymentReceived:
+ */
+@property (nonatomic, readonly) SKProduct *rm_product;
 
 @end
